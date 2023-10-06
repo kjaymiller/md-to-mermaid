@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools", "wheel", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+local_scheme = "no-local-version"
+
+[project]
+name = "md_to_mermaid"
+dynamic = ["version"]
+description = "Convert Markdown Headers to mermaid.js diagrams."
+readme = "README.md"
+
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+    "black",
+    ]
+
+[tool.setuptools]
+package-dir = {"" = "md_to_mermaid"}
+
+[project.urls]
+homepage = "https://github.com/kjaymiller/md_to_mermaid"
+repository = "https://github.com/kjaymiller/md_to_mermaid"
+
+[tool.pytest.ini_options]
+pythonpath = ["md_to_mermaid"]
