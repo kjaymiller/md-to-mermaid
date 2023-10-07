@@ -161,3 +161,4 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 md_to_mermaid/__pycache__/md_to_mermaid.cpython-311.pyc
+.vscode/settings.json
