@@ -42,7 +42,8 @@ def bundle_nodes(
         
         if parent_node._tag_value > node._tag_value:
             # Node is a child of the parent node
-            parent_node.children.insert(0, node_list.pop(index))
+            node.children.insert(0, node_list.pop(index))
+            parent_node = node
 
     return parent_node, node_list
 
