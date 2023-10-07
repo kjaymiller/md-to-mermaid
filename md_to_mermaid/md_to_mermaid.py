@@ -1,3 +1,5 @@
+from more_itertools import split_when
+
 from collections import defaultdict
 from dataclasses import dataclass, field
 
@@ -13,13 +15,46 @@ class MermaidNode:
     format: str = "Flowchart LR"
 
     def __str__(self):
-        return f"""{self.format}
-{self.content}"""
+        return f"{self.format}\n{self.content}"
+
+    @property
+    def _tag_value(self):
+        return int(self.tag[1])
+
+def bundle_nodes(node_list=list[Token|list[Token]]):
+    """
+    Bundle tokens into a list of MermaidNodes.
+    
+    Split when the tag value of the next node is less than or equal to the current node.
+
+    """
+    if all((isinstance(x, MermaidNode) for x in node_list)):
+        print("All MermaidNodes")
+        node_bundle = list(
+            split_when(node_list, lambda x,y: x._tag_value >= y._tag_value)
+        )
+    elif all((isinstance(x, list) for x in node_list)):
+        print("All Lists")
+        print("Root_nodes")
+        print([node[0].tag for node in node_list])
+        node_bundle = list(
+            split_when(node_list, lambda x,y: x[0]._tag_value >= y[0]._tag_value)
+        )
 
 
-def bundle_nodes(node_list=list[Token]):
-    """Bundle tokens into a list of MermaidNodes."""
-    nodes = defaultdict(list)
+    print("results:")
+    print(node_bundle)
+    print("----")
+    while len(node_bundle) > 1:
+        bundle_nodes(node_bundle)
+    return node_bundle
+
+def evaluate_root_nodes(node_lists: list[list[MermaidNode]])-> bool:
+    """Check the first node of each list.
+    And return if all the roots are the same
+    """
+    root_nodes = [node_list[0] for node_list in node_lists]
+    return all((node.tag == root_nodes[0].tag for node in root_nodes))
 
 
 def parse_md_headers(md_text:str)  -> list[SyntaxTreeNode]:
