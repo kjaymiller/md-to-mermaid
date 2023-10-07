@@ -1,0 +1,7 @@
+markdown-it-py
+mermaid-python
+
+[dev]
+pytest
+ruff
+black

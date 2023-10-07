@@ -11,7 +11,10 @@ dynamic = ["version"]
 description = "Convert Markdown Headers to mermaid.js diagrams."
 readme = "README.md"
 
-dependencies = []
+dependencies = [
+    "markdown-it-py",
+    "mermaid-python", 
+]
 
 [project.optional-dependencies]
 dev = [

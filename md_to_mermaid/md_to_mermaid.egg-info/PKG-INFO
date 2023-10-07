@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: md-to-mermaid
+Version: 0.1.dev1
+Summary: Convert Markdown Headers to mermaid.js diagrams.
+Project-URL: homepage, https://github.com/kjaymiller/md_to_mermaid
+Project-URL: repository, https://github.com/kjaymiller/md_to_mermaid
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: markdown-it-py
+Requires-Dist: mermaid-python
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Requires-Dist: black; extra == "dev"
+
+MD to Mermaid
+
+Convert Markdown Headers to mermaid.js diagrams.
+
+## Installation
+
+```base
+pip install md-to-mermaid
+```
+
+## Usage
+
+
+## Contributing
+
+- Create an Issue (and wait to be assigned)
+- Fork the Code
+- Make the changes
+- Test your changes (create new tests as needed)
+- Submit a PR
+- 🥳
