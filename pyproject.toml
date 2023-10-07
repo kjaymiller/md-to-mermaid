@@ -12,7 +12,6 @@ description = "Convert Markdown Headers to mermaid.js diagrams."
 readme = "README.md"
 
 dependencies = [
-    "markdown-it-py",
     "mermaid-python", 
 ]
 
