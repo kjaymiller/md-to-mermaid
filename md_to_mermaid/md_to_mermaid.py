@@ -1,11 +1,8 @@
-from more_itertools import split_when
-
-from collections import defaultdict
+import copy
 from dataclasses import dataclass, field
 
 from markdown_it import MarkdownIt
 from markdown_it.tree import SyntaxTreeNode, Token
-
 
 @dataclass
 class MermaidNode:
@@ -14,40 +11,41 @@ class MermaidNode:
     children: list["MermaidNode"] = field(default_factory=list)
     format: str = "Flowchart LR"
 
-    def __str__(self):
-        return f"{self.format}\n{self.content}"
+    # def __str__(self):
+    #     return f"{self.format}\n{self.content}"
 
     @property
     def _tag_value(self):
         return int(self.tag[1])
 
-def bundle_nodes(node_list=list[Token|list[Token]]):
+def bundle_nodes(
+        node_list=list[Token|list[Token]],
+        parent_node: MermaidNode|None = None
+):
     """
     Bundle tokens into a list of MermaidNodes.
     
     Split when the tag value of the next node is less than or equal to the current node.
 
     """
-    if all((isinstance(x, MermaidNode) for x in node_list)):
-        print("All MermaidNodes")
-        node_bundle = list(
-            split_when(node_list, lambda x,y: x._tag_value >= y._tag_value)
-        )
-    elif all((isinstance(x, list) for x in node_list)):
-        print("All Lists")
-        print("Root_nodes")
-        print([node[0].tag for node in node_list])
-        node_bundle = list(
-            split_when(node_list, lambda x,y: x[0]._tag_value >= y[0]._tag_value)
-        )
+    
+    if not parent_node:
+        parent_node = node_list.pop()
+    
+    return parent_node
 
+    for index, node in reversed(list(enumerate(node_list))):
+        
+        if parent_node._tag_value == node._tag_value:
+            # Nodes are siblings. Return the parent node and the remaining objects
+            return parent_node, node_list
+        
+        if parent_node._tag_value > node._tag_value:
+            # Node is a child of the parent node
+            parent_node.children.insert(0, node_list.pop(index))
 
-    print("results:")
-    print(node_bundle)
-    print("----")
-    while len(node_bundle) > 1:
-        bundle_nodes(node_bundle)
-    return node_bundle
+    return parent_node, node_list
+
 
 def evaluate_root_nodes(node_lists: list[list[MermaidNode]])-> bool:
     """Check the first node of each list.
