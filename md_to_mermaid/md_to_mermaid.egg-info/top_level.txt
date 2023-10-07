@@ -1,2 +1,0 @@
-cli
-md_to_mermaid
