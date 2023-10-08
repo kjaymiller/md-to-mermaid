@@ -1,11 +1,15 @@
 import pytest
 
 @pytest.fixture
-def header_1(scope="session")
+def header_1(scope="session"):
     return "# Header1"
 
 @pytest.fixture
-def header_multiple_children(scope="session")
+def header_1_2_3(scope="session"):
+    return "# Header1\n## Header2\n### Header3"
+
+@pytest.fixture
+def header_multiple_children(scope="session"):
     return """
 # Header1
 ## Header2
@@ -13,12 +17,6 @@ def header_multiple_children(scope="session")
 ## Header2
 """
 
-@pytest.fixture
-def header_1(scope="session")
-    return """
-# Header1
-
-"""
 
 @pytest.fixture(scope="session")
 def multiple_markdown_headers():
@@ -38,11 +36,5 @@ def multiple_markdown_headers_with_text():
 This is some Text
 ## Header2
 ### Header3
-#### Header4
-##### Header5
-###### Header6
 Some text
 """
-
-pytest.fixture(scope="session")
-def

@@ -14,21 +14,12 @@ class MermaidNode:
     format: str = "Flowchart LR"
 
 
-
-
-def iterate_through_header(md_str: str)-> list[MermaidNode]:
+def build_MermaidNode_from_md_string(md_str: str)-> list[MermaidNode]:
     parent = MermaidNode(
         header_level=0,
         header_text="I am (G)Root"
 
     )
-    
-    # header = next(headers)
-    # parent = MermaidNode(
-    #     header_level=header.level,
-    #     header_text=header.text,
-    #     parent=parent
-    # )
     mermaid_tree_root = parent
 
     for header in generate_header(md_str):
@@ -56,11 +47,3 @@ def iterate_through_header(md_str: str)-> list[MermaidNode]:
         parent = node
         
     return mermaid_tree_root
-        
-
-def mermaid_file_build():
-    """
-    Diagram starts with the first header and links all of the children nodes.
-
-    If there is subsequent header 1, 
-    """
