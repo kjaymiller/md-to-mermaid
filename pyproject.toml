@@ -18,6 +18,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest",
+    "pytest-lazy-fixture",
     "ruff",
     "black",
     ]
